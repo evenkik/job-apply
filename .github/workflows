@@ -1,0 +1,33 @@
+name: Notify n8n on GitHub Pages Deploy
+
+on:
+  workflow_run:
+    workflows: ["pages-build-deployment"]
+    types:
+      - completed
+
+jobs:
+  notify:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get commit message
+        id: get_message
+        run: |
+          COMMIT_MESSAGE=$(curl -s \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/${{ github.repository }}/commits/${{ github.event.workflow_run.head_sha }} \
+            | jq -r '.commit.message')
+          echo "message=$COMMIT_MESSAGE" >> $GITHUB_OUTPUT
+
+      - name: Send POST to n8n webhook
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d "{\"status\": \"deployed\", \
+                 \"repo\": \"${{ github.repository }}\", \
+                 \"branch\": \"${{ github.ref_name }}\", \
+                 \"commit\": \"${{ github.event.workflow_run.head_sha }}\", \
+                 \"message\": \"${{ steps.get_message.outputs.message }}\"}" \
+            <your_webhook_url>
