@@ -51,12 +51,29 @@ role | summary | task | skills | tools | industry
 - Add these columns:  
 company | cover_letter | resume
 
-### 5. Customize the HTML Template
+## 5. Install Gotenberg
+- Follow the installation instructions on the **Gotenberg GitHub repository**: [https://github.com/thecodingmachine/gotenberg](https://github.com/thecodingmachine/gotenberg)
+
+### 6. Customize the HTML Template
 - Modify the HTML resume to your liking.  
 - You can use an **LLM** to locate and edit specific sections.
 
-### 6. Add Authentication and Link Your GitHub Repo
+### 7. Add Authentication and Link Your GitHub Repo
 - Ensure your workflow has permission to **push updates** to your GitHub Pages branch.
 
-### 7. Run the Workflow
+### 8. Run the Workflow
 - Once everything is connected, trigger the workflow to automatically generate and save **personalized resumes and cover letters**.
+
+## 📝 How to Use
+
+1. **Copy and paste the job listing description** into the Telegram bot.  
+2. **Wait for the "Done" notification** before submitting another job.  
+   - Do **not** use the bot again until the notification appears.  
+   - The process usually takes a few minutes to complete.
+
+---
+
+## ✅ Closing Notes
+
+This workflow is designed to **save time and personalize your job applications** efficiently.  
+By combining n8n automation, LLMs, and open-source tools like Gotenberg, you can maintain full control over your data while generating high-quality resumes and cover letters for every job opportunity.
